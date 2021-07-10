@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TrabajoFinal</string>
+    <string name="covid_global_stats">COVID Global Stats</string>
+    <string name="countries_list">Countries list</string>
+    <string name="home">Home</string>
+    <string name="australia">Australia</string>
+    <string name="additional_info">Additional info</string>
+    <string name="the_data_is_not_synchronized">The data is not synchronized.</string>
+    <string name="synchronize">Synchronize</string>
+    <string name="countries_ranking">Countries ranking</string>
+    <string name="stats_by_country">Stats by Country</string>
+    <string name="aqui_va_el_piechart_con_estadisticas_para_el_pais_seleccionado">Aqui va el PieChart con estadisticas para el pais seleccionado</string>
+    <string name="stats_for_australia">Stats for Australia</string>
+    <string name="aqui_va_el_grafico_con_las_estadisticas_de_los_ultimos_meses_del_pais">Aqui va el grafico con las estadisticas de los ultimos meses del pais</string>
+    <string name="piechart">PieChart</string>
+    <string name="progress_graph">Progress graph</string>
+    <string name="_1">1</string>
+    <string name="_1_">1.</string>
+    <string name="_1__">1.</string>
+</resources>
