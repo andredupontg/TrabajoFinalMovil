@@ -12,9 +12,14 @@ import pe.edu.ulima.pm.trabajofinal.fragments.GlobalInfoFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SynchronizeFragment
 import pe.edu.ulima.pm.trabajofinal.objects.FirstTime
 
+
+//hafafaqfas
+
 class MainActivity : AppCompatActivity() {
 
     private var toolbar: androidx.appcompat.widget.Toolbar? = null
+
+    val a = 3
 
     private var fragments: ArrayList<Fragment> = ArrayList()
 
