@@ -7,10 +7,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import pe.edu.ulima.pm.trabajofinal.fragments.CountriesInfoFragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import pe.edu.ulima.pm.trabajofinal.fragments.GlobalInfoFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SynchronizeFragment
+import pe.edu.ulima.pm.trabajofinal.models.dao.CountriesService
+import pe.edu.ulima.pm.trabajofinal.models.dao.GlobalData
+import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
+import pe.edu.ulima.pm.trabajofinal.objects.CountriesList
 import pe.edu.ulima.pm.trabajofinal.objects.FirstTime
+import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 // Listo para trabajar
@@ -18,8 +26,9 @@ import pe.edu.ulima.pm.trabajofinal.objects.FirstTime
 class MainActivity : AppCompatActivity() {
 
     private var toolbar: androidx.appcompat.widget.Toolbar? = null
-
     private var fragments: ArrayList<Fragment> = ArrayList()
+    private var globalData: GlobalData? = null //Datos globales de covid + lista de paises con info completa
+    private var countriesDataList: ArrayList<SingleCountryData> = ArrayList() //Lista de paises con info completa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         fragments.add(SynchronizeFragment())
         fragments.add(GlobalInfoFragment())
+
+        searchGlobalData()
+        searchCountries()
 
         //Seteando el toolbar
         toolbar = findViewById(R.id.tbaMain)
@@ -73,4 +85,51 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
+
+    private fun getRetrofit(): Retrofit {
+        return Retrofit.Builder().baseUrl("https://api.covid19api.com")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    private fun searchCountries() /*ArrayList<CountryData>*/ {
+        lifecycleScope.launch {
+            val call = getRetrofit().create(CountriesService::class.java).getCountries("/countries")
+
+            if (call.isSuccessful) {
+                CountriesList.list = call.body()
+                Log.i("MainActivity", CountriesList.list.toString())
+
+            } else {
+                Log.i("CountriesInfoFragment", "ArrayList vacio")
+            }
+        }
+        Log.i("After lifecycleScope",CountriesList.list.toString())
+    }
+
+    private fun searchGlobalData() {
+        lifecycleScope.launch {
+            val call = getRetrofit().create(CountriesService::class.java).getGlobalData("/summary")
+
+            if (call.isSuccessful) {
+                globalData = call.body()
+                GlobalDataInfo.globalData = call.body()
+                Log.i("globalData", call.body().toString())
+                Log.i("globalData", GlobalDataInfo.globalData.toString())
+
+                setCountriesData(GlobalDataInfo.globalData!!)
+                GlobalDataInfo.countriesData = countriesDataList
+                Log.i("countriesData", GlobalDataInfo.countriesData.toString())
+
+            }else {
+                Log.i("MainActivity", "ArrayList vacio")
+            }
+        }
+    }
+
+    private fun setCountriesData(globalData: GlobalData) {
+        for (i in globalData.Countries) {
+            countriesDataList.add(i)
+        }
+    }
+
 }

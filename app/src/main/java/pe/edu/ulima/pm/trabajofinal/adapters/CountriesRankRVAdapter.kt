@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.trabajofinal.R
-import pe.edu.ulima.pm.trabajofinal.models.Country
+import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
 
 interface OnCountryRankItemClickListener {
-    fun onClick(country: Country)
+    fun onClick(country: SingleCountryData)
 }
 
 class CountriesRankRVAdapter: RecyclerView.Adapter<CountriesRankRVAdapter.ViewHolder> {
@@ -27,11 +28,11 @@ class CountriesRankRVAdapter: RecyclerView.Adapter<CountriesRankRVAdapter.ViewHo
         }
     }
 
-    private var countries: ArrayList<Country>? = null
+    private var countries: ArrayList<SingleCountryData>? = null
     private var listener: OnCountryRankItemClickListener? = null
     private var context: Context? = null
 
-    constructor(countries : ArrayList<Country>,
+    constructor(countries : ArrayList<SingleCountryData>,
                 listener: OnCountryRankItemClickListener,
                 context: Context) : super() {
         this.countries = countries
@@ -48,8 +49,8 @@ class CountriesRankRVAdapter: RecyclerView.Adapter<CountriesRankRVAdapter.ViewHo
         val pos = position+1
 
         //Se muestran los datos de la competicion en el RecyclerView
-        holder.tviCountryName!!.text = country.name
-        holder.tviCountryInfo!!.text = country.info.toString()
+        holder.tviCountryName!!.text = country.Country
+        holder.tviCountryInfo!!.text = "Confirmed cases: ${country.TotalConfirmed}"
         holder.tviCountryPosition!!.text = "${pos}. "
 
         holder.itemView.setOnClickListener {

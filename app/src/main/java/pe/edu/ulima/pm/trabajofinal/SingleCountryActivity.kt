@@ -29,8 +29,10 @@ class SingleCountryActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_country)
 
+        Log.i("SingleCountryActivity", SingleCountryStats.toString())
+
         tviTitulo = findViewById(R.id.tviSingleCountryTitle)
-        tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.name}"
+        tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.Country}"
 
         fragments.add(SingleCountryPiechartFragment())
         fragments.add(SingleCountryGraphFragment())
@@ -55,12 +57,12 @@ class SingleCountryActivity: AppCompatActivity() {
             if (item.itemId == R.id.mnuPiechart) {
                 // Abrir SingleCountryPiechartFragment
                 ft.replace(R.id.flaSingleCountry, fragments[0])
-                tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.name}"
+                tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.Country}"
 
             }else if (item.itemId == R.id.mnuGraph) {
                 // Abrir SingleCountryGraphFragment
                 ft.replace(R.id.flaSingleCountry, fragments[1])
-                tviTitulo!!.text = "Progress graph for ${SingleCountryStats.country!!.name}"
+                tviTitulo!!.text = "Progress graph for ${SingleCountryStats.country!!.Country}"
             }
 
             ft.addToBackStack(null)
