@@ -15,18 +15,15 @@ import pe.edu.ulima.pm.trabajofinal.adapters.CountriesInfoRVAdapter
 import pe.edu.ulima.pm.trabajofinal.adapters.OnCountryInfoItemClickListener
 import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
 import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
-import pe.edu.ulima.pm.trabajofinal.objects.CountriesList
-import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
-import pe.edu.ulima.pm.trabajofinal.objects.SingleCountryStats
+import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
+import pe.edu.ulima.pm.trabajofinal.objects.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
 
     private var title: TextView? = null
-
     private var rviCompetitions: RecyclerView? = null
-    private var countriesListTest = listOf<CountryData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,49 +36,18 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setCountryDataList()
-
         //Llamando al RV del fragment
         rviCompetitions = view.findViewById(R.id.rviCountriesInfo)
 
         Log.i("CountriesInfoFragment", CountriesList.toString())
-        val countriesRVAdapter = CountriesInfoRVAdapter(GlobalDataInfo.countriesData!!, this, view.context)
+        val countriesRVAdapter = CountriesInfoRVAdapter(PremiumGlobalDataInfo.premiumCountriesData!!, this, view.context)
         rviCompetitions!!.adapter = countriesRVAdapter
 
     }
 
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl("https://api.covid19api.com")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-    }
-
-    private fun setCountryDataList() {
-        val ci= "Country Info"
-        countriesListTest = listOf(
-            CountryData("Australia", ci,""),
-            CountryData("United States of America", ci,""),
-            CountryData("Peru", ci,""),
-            CountryData("Brazil", ci,""),
-            CountryData("Italy", ci,""),
-            CountryData("Thailand", ci,""),
-            CountryData("China", ci,""),
-            CountryData("Argentina", ci,""),
-            CountryData("Turkey", ci,""),
-            CountryData("Germany", ci,""),
-            CountryData("Netherlands", ci,""),
-            CountryData("Spain", "Country info",""),
-            CountryData("Russia", "Country info",""),
-            CountryData("South Africa", "Country info",""),
-            CountryData("Trinidad and Tobago", "Country info",""),
-            CountryData("Paraguay", "Country info",""),
-            CountryData("Venezuela", "Country info","")
-        )
-    }
-
-    override fun onClick(country: SingleCountryData) {
-
+    override fun onClick(country: PremiumSingleCountryData) {
         //Actualizando el Singleton con la info del pais seleccionado
-        SingleCountryStats.country = country
+        PremiumSingleCountryStats.country = country
 
         //Abrir SingleCountryActivity
         val intent = Intent(context, SingleCountryActivity::class.java)

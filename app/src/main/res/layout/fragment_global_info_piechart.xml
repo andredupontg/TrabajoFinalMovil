@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,12 +14,12 @@
     <com.github.mikephil.charting.charts.PieChart
         android:layout_height="300dp"
         android:layout_width="match_parent"
-        android:id="@+id/pchSingleCountry"
+        android:id="@+id/pchGlobalData"
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="50sp"/>
 
     <TextView
-        android:id="@+id/tviDateCountry"
+        android:id="@+id/tviDateGlobal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20sp"
@@ -25,35 +27,35 @@
         android:text="Last updated: DATE"/>
 
     <TextView
-        android:id="@+id/tviTotalConfirmedCountry"
+        android:id="@+id/tviTotalConfirmedGlobal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="20dp"
-        android:text="Total confirmed cases: 6754491"/>
+        android:text="Total confirmed cases: 675449185"/>
 
     <TextView
-        android:id="@+id/tviTotalDeathsCountry"
+        android:id="@+id/tviTotalDeathsGlobal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="10dp"
-        android:text="Total deaths: 935744" />
+        android:text="Total deaths: 93574429" />
 
     <TextView
-        android:id="@+id/tviTotalRecoveredCountry"
+        android:id="@+id/tviTotalRecoveredGlobal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="10dp"
-        android:text="Total recovered: 4325543" />
+        android:text="Total recovered: 432554396" />
 
     <TextView
-        android:id="@+id/tviTotalActiveCasesCountry"
+        android:id="@+id/tviTotalActiveCasesGlobal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="10dp"
-        android:text="Total active cases: 628964" />
+        android:text="Total active cases: 62896495" />
 
 </LinearLayout>

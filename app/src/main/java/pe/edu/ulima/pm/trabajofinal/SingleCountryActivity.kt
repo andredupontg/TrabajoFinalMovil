@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.pm.trabajofinal.fragments.SingleCountryGraphFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SingleCountryPiechartFragment
+import pe.edu.ulima.pm.trabajofinal.objects.PremiumSingleCountryStats
 import pe.edu.ulima.pm.trabajofinal.objects.SingleCountryStats
 
 class SingleCountryActivity: AppCompatActivity() {
@@ -32,7 +33,7 @@ class SingleCountryActivity: AppCompatActivity() {
         Log.i("SingleCountryActivity", SingleCountryStats.toString())
 
         tviTitulo = findViewById(R.id.tviSingleCountryTitle)
-        tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.Country}"
+        tviTitulo!!.text = "Stats for ${PremiumSingleCountryStats.country!!.Country}"
 
         fragments.add(SingleCountryPiechartFragment())
         fragments.add(SingleCountryGraphFragment())
@@ -57,12 +58,12 @@ class SingleCountryActivity: AppCompatActivity() {
             if (item.itemId == R.id.mnuPiechart) {
                 // Abrir SingleCountryPiechartFragment
                 ft.replace(R.id.flaSingleCountry, fragments[0])
-                tviTitulo!!.text = "Stats for ${SingleCountryStats.country!!.Country}"
+                tviTitulo!!.text = "Stats for ${PremiumSingleCountryStats.country!!.Country}"
 
             }else if (item.itemId == R.id.mnuGraph) {
                 // Abrir SingleCountryGraphFragment
                 ft.replace(R.id.flaSingleCountry, fragments[1])
-                tviTitulo!!.text = "Progress graph for ${SingleCountryStats.country!!.Country}"
+                tviTitulo!!.text = "Progress graph for ${PremiumSingleCountryStats.country!!.Country}"
             }
 
             ft.addToBackStack(null)
@@ -98,7 +99,8 @@ class SingleCountryActivity: AppCompatActivity() {
             }
             //Click en el icono de ranking de paises
             R.id.mnuCountriesRanking -> {
-                TODO()
+                val intent = Intent(this, CountriesRankActivity::class.java)
+                startActivity(intent)
             }
         }
         return false

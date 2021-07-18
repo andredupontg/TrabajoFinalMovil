@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.trabajofinal.R
 import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
 import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
 
 interface OnCountryInfoItemClickListener {
-    fun onClick(country: SingleCountryData)
+    fun onClick(country: PremiumSingleCountryData)
 }
 
 class CountriesInfoRVAdapter: RecyclerView.Adapter<CountriesInfoRVAdapter.ViewHolder> {
@@ -26,11 +27,11 @@ class CountriesInfoRVAdapter: RecyclerView.Adapter<CountriesInfoRVAdapter.ViewHo
         }
     }
 
-    private var countries: ArrayList<SingleCountryData>? = null
+    private var countries: ArrayList<PremiumSingleCountryData>? = null
     private var listener: OnCountryInfoItemClickListener? = null
     private var context: Context? = null
 
-    constructor(countries : ArrayList<SingleCountryData>,
+    constructor(countries : ArrayList<PremiumSingleCountryData>,
                 listener: OnCountryInfoItemClickListener,
                 context: Context) : super() {
         this.countries = countries
@@ -47,7 +48,7 @@ class CountriesInfoRVAdapter: RecyclerView.Adapter<CountriesInfoRVAdapter.ViewHo
 
         //Se muestran los datos de la competicion en el RecyclerView
         holder.tviCountryName!!.text = country.Country
-        holder.tviCountryInfo!!.text = "Confirmed cases: ${country.TotalConfirmed}"
+        holder.tviCountryInfo!!.text = "Confirmed cases: ${country.TotalCases}"
 
         holder.itemView.setOnClickListener {
             listener!!.onClick(countries!![position])

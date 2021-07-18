@@ -1,12 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.managers
 
-import android.content.Context
-import android.util.Log
-import pe.edu.ulima.pm.trabajofinal.models.dao.CountriesService
 import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
-import retrofit2.Callback
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.ArrayList
 
 interface OnGetCountriesDone {
