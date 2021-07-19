@@ -23,8 +23,7 @@ class SynchronizeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+        //Cambiar de fragment al sincronizar
         butSynchronize = view.findViewById(R.id.butSynchronize)
         butSynchronize!!.setOnClickListener {
             val transaction = activity?.supportFragmentManager?.beginTransaction()

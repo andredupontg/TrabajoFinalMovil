@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             searchGlobalData()
             searchPremiumGlobalData()
 
+        //Si no hay internet, se carga data de Room
         } else {
             lifecycleScope.launch {
                 InternetConnection.isConnected = false
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // Cargar activity de acurdo a la opcion seleccionada
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val itemview = item.itemId
         when (itemview) {
@@ -119,11 +121,13 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
+    // Configurar la conexion al API
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("https://api.covid19api.com")
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
+    // Obtener datos de https://api.covid19api.com/summary
     private fun searchGlobalData() {
 
             lifecycleScope.launch {
@@ -147,11 +151,13 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    // Obtener datos de https://api.covid19api.com/premium/summary
     private fun searchPremiumGlobalData() {
 
         lifecycleScope.launch {
             val call = getRetrofit().create(CovidAPIService::class.java).getPremiumGlobalData("/premium/summary")
 
+            // Si se devuelve data
             if (call.isSuccessful) {
                 PremiumGlobalDataInfo.premiumGlobalData = call.body()
 
@@ -232,6 +238,7 @@ class MainActivity : AppCompatActivity() {
         return ge
     }
 
+    // Obtener data de room y guardarla en Singletons
     private suspend fun getDataFromRoom () {
 
         val countries: ArrayList<PremiumSingleCountryData> = ArrayList()
@@ -293,6 +300,7 @@ class MainActivity : AppCompatActivity() {
         PremiumGlobalDataInfo.premiumGlobalData?.Date= date.Date
     }
 
+    //Para verificar la conexion a internet
     private fun verifyAvailableNetwork(activity:AppCompatActivity):Boolean{
         val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo

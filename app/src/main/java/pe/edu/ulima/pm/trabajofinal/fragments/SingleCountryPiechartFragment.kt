@@ -11,14 +11,9 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import pe.edu.ulima.pm.trabajofinal.R
-import pe.edu.ulima.pm.trabajofinal.objects.FirstTime.isFirstTime
-import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
 import pe.edu.ulima.pm.trabajofinal.objects.PremiumSingleCountryStats
-import pe.edu.ulima.pm.trabajofinal.objects.SingleCountryStats
-import pe.edu.ulima.pm.trabajofinal.objects.test
 
 class SingleCountryPiechartFragment: Fragment() {
 
@@ -67,6 +62,7 @@ class SingleCountryPiechartFragment: Fragment() {
 
     }
 
+    //Configurar el PieChart
     private fun setPieChart() {
 
         val pieDataSet = PieDataSet(getList(), "")
@@ -86,11 +82,8 @@ class SingleCountryPiechartFragment: Fragment() {
 
     private fun getList() : ArrayList<PieEntry>{
 
-        //if (test.isFirstTime == 1) {
         dataList.add(0, PieEntry(sc!!.TotalCasesPerMillion.toFloat(), "Cases/million"))
         dataList.add(1, PieEntry(sc!!.TotalDeathsPerMillion.toFloat(), "Deaths/Million"))
-        //}
-        //test.isFirstTime = 0
 
         return dataList
     }

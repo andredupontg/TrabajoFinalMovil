@@ -1,6 +1,5 @@
 package pe.edu.ulima.pm.trabajofinal.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,13 +31,15 @@ class SingleCountryGraphFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_single_country_graph, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         tviChartInfo = view.findViewById(R.id.tviChartInfo)
 
+        //Si hay internet
         if (InternetConnection.isConnected) {
-            getLastTenItems()
+            getLastTwentyItems()
 
             lineChart = view.findViewById(R.id.lineChart)
             countryList = ArrayList()
@@ -55,6 +56,8 @@ class SingleCountryGraphFragment: Fragment() {
             lineChart!!.description.isEnabled = false
             lineChart!!.invalidate()
         }
+
+        //Si no hay internet, no se carga el grafico
         else {
             tviChartInfo!!.text = "Internet connection is needed to show this graph."
         }
@@ -66,7 +69,9 @@ class SingleCountryGraphFragment: Fragment() {
         }
         return  countryList
     }
-    private fun getLastTenItems() {
+
+    // Obtener ultimos 20 registros del pais
+    private fun getLastTwentyItems() {
         val list = SingleCountryHistoricalStats.countryHistoricalData
         Log.i("SingleCountryGraph", SingleCountryHistoricalStats.countryHistoricalData.toString())
 

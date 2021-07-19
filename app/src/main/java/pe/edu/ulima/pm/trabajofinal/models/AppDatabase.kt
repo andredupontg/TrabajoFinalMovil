@@ -15,6 +15,7 @@ import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.GlobalEntity
 @Database(entities = arrayOf(CountryEntity::class, GlobalEntity::class, DateEntity::class), version = 1)
 abstract class AppDatabase: RoomDatabase () {
 
+    // Para acceder a los metodos de los DAO
     abstract val countryDAO: CountryDAO
     abstract val globalDAO: GlobalDAO
     abstract val dateDAO: DateDAO
