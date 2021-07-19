@@ -42,6 +42,7 @@ class CountriesListActivity: AppCompatActivity() {
         return true
     }
 
+    // Cargar activity de acurdo a la opcion seleccionada
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val itemview = item.itemId
         when (itemview) {

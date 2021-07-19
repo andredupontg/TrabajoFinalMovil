@@ -31,8 +31,6 @@ class SingleCountryActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_country)
 
-        Log.i("SingleCountryActivity", SingleCountryStats.toString())
-
         tviTitulo = findViewById(R.id.tviSingleCountryTitle)
         tviTitulo!!.text = "Stats for ${PremiumSingleCountryStats.country!!.Country}"
 
@@ -85,6 +83,7 @@ class SingleCountryActivity: AppCompatActivity() {
         return true
     }
 
+    // Cargar activity de acurdo a la opcion seleccionada
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val itemview = item.itemId
         when (itemview) {

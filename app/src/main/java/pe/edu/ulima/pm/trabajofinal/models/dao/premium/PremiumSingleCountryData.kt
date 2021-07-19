@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao.premium
 
+
 data class PremiumSingleCountryData(
     val ID: String,
     val CountryISO: String,
