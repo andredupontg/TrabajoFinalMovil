@@ -26,7 +26,7 @@ class SingleCountryPiechartFragment: Fragment() {
     private var sc = PremiumSingleCountryStats.country //Singleton que contiene stats del pais seleccionado
 
     //Para configurar el PieChart
-    private var dataList: ArrayList<PieEntry> = ArrayList()
+    private var dataList = arrayOfNulls<PieEntry>(2)
     private var colors: ArrayList<Int> = ArrayList()
     private lateinit var pchSingleCountry: PieChart
 
@@ -65,7 +65,7 @@ class SingleCountryPiechartFragment: Fragment() {
     //Configurar el PieChart
     private fun setPieChart() {
 
-        val pieDataSet = PieDataSet(getList(), "")
+        val pieDataSet = PieDataSet(getList().toCollection(ArrayList()), "")
         val pieData = PieData(pieDataSet)
 
         colors.add(ColorTemplate.MATERIAL_COLORS[1])
@@ -80,10 +80,10 @@ class SingleCountryPiechartFragment: Fragment() {
         pchSingleCountry.invalidate()
     }
 
-    private fun getList() : ArrayList<PieEntry>{
+    private fun getList() : Array<PieEntry?> {
 
-        dataList.add(0, PieEntry(sc!!.TotalCasesPerMillion.toFloat(), "Cases/million"))
-        dataList.add(1, PieEntry(sc!!.TotalDeathsPerMillion.toFloat(), "Deaths/Million"))
+        dataList[0] = PieEntry(sc!!.TotalCasesPerMillion.toFloat(), "Cases/million")
+        dataList[1] = PieEntry(sc!!.TotalDeathsPerMillion.toFloat(), "Deaths/Million")
 
         return dataList
     }

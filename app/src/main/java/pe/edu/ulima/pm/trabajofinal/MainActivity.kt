@@ -246,7 +246,9 @@ class MainActivity : AppCompatActivity() {
         val date = Date(0,"")
 
         val countryEntity = ArrayList(countryDAO!!.getAllCountries())
-        for (i in 1..countryEntity.size) {
+        val size = countryEntity.size
+
+        for (i in (size-217)..size) {
             countries.add(PremiumSingleCountryData(
                 countryEntity[i-1].ID,
                 countryEntity[i-1].CountryISO,
@@ -284,8 +286,6 @@ class MainActivity : AppCompatActivity() {
         global.NewConfirmed = g.NewConfirmed
         global.NewDeaths = g.NewDeaths
         global.NewRecovered = g.NewRecovered
-
-        Log.i("Mainnn", global.toString())
 
         val dateEntity = ArrayList(dateDAO!!.getAllDates())
         val d = dateEntity[dateEntity.size-1]

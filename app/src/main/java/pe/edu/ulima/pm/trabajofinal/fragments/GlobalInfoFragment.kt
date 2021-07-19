@@ -30,7 +30,7 @@ class GlobalInfoFragment: Fragment() {
     private lateinit var tviTotalActiveCasesGlobal: TextView
 
     private var gd = GlobalDataInfo.globalData?.Global
-    private val totalActiveCasesGlobal = 5000 /*gd.TotalConfirmed - gd.TotalDeaths - gd.TotalRecovered*/
+    private var totalActiveCasesGlobal: Int? = null /*gd.TotalConfirmed - gd.TotalDeaths - gd.TotalRecovered*/
 
     //Para configurar el PieChart
     private var dataList: ArrayList<PieEntry> = ArrayList()
@@ -62,6 +62,9 @@ class GlobalInfoFragment: Fragment() {
         if (InternetConnection.isConnected) {
 
             setPieChart()
+
+            totalActiveCasesGlobal = calculateActiveCases()
+
             // Seteando los TextView
             tviDateGlobal.text = "Last updated: ${gd?.Date}"
             tviTotalConfirmedGlobal.text = "Total confirmed cases: ${gd?.TotalConfirmed}"
@@ -112,5 +115,18 @@ class GlobalInfoFragment: Fragment() {
         return dataList
     }
 
+    private fun calculateActiveCases(): Int {
+
+        val a = gd?.TotalConfirmed
+        val b = gd?.TotalDeaths?.toInt()
+        val c = gd?.TotalRecovered?.toInt()
+
+        return if (a == null && b == null && c == null){
+            0
+        } else {
+            (a!! - b!! - c!!).toInt()
+        }
+    }
 }
+
 

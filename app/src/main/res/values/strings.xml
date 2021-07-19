@@ -18,4 +18,6 @@
     <string name="_1_">1.</string>
     <string name="_1__">1.</string>
     <string name="the_graph_is_based_in_the_last_20_covid_reports_sent">The graph is based in the last 20 COVID reports sent.</string>
+    <string name="view_global_statistics">View global statistics</string>
+    <string name="welcome_to_the_covid_info_app">Welcome to the COVID Info app !</string>
 </resources>

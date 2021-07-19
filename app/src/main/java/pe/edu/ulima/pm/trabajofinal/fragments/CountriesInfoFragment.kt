@@ -75,7 +75,6 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
 
             if (call.isSuccessful) {
                 SingleCountryHistoricalStats.countryHistoricalData = call.body()
-                Log.i("CountriesInfoFragment", call.body().toString())
                 startActivity(Intent(context,SingleCountryActivity::class.java))
             }
         }
@@ -93,8 +92,10 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
         //Actualizando el Singleton con la info del pais seleccionado
         PremiumSingleCountryStats.country = country
         countryName = getCountrySlug(country.Country)
-
-        searchSingleCountryHistoricalData()
+        if (InternetConnection.isConnected) {
+            searchSingleCountryHistoricalData()
+        } else {
+            startActivity(Intent(context,SingleCountryActivity::class.java))
+        }
     }
-
 }
