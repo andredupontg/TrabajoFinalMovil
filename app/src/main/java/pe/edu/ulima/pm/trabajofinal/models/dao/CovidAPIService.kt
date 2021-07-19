@@ -9,6 +9,7 @@ import retrofit2.http.Url
 
 //https://api.covid19api.com
 
+// Le agregamos el header y token para acceder a la data con nuestra subscripcion
 interface CovidAPIService {
 
     @Headers("X-Access-Token: 5cf9dfd5-3449-485e-b5ae-70a60e997864")

@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao
 
+// Data class para poder mostrar los casos por país
 data class SingleCountryData(
     val ID: String,
     val Country: String,

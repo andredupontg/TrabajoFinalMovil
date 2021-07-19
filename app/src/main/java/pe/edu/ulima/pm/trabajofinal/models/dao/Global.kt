@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao
 
+// Data class para la interfaz del pie chart con los casos a nivel global
 data class Global(
     var NewConfirmed: Long,
     var TotalConfirmed: Long,
