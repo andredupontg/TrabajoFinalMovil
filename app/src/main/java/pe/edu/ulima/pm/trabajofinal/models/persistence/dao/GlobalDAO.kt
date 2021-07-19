@@ -4,6 +4,7 @@ import android.provider.Settings
 import androidx.room.*
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.GlobalEntity
 
+//Aqui interactuaremos con la entidad dglobal para mostralo en la interfaz
 @Dao
 interface GlobalDAO {
 

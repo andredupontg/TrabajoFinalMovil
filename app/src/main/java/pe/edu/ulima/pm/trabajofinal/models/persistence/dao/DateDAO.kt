@@ -3,6 +3,7 @@ package pe.edu.ulima.pm.trabajofinal.models.persistence.dao
 import androidx.room.*
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.DateEntity
 
+// Solo generamos para mostrar las fechas para el análisis del gráfico
 @Dao
 interface DateDAO {
 
