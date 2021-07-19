@@ -48,7 +48,7 @@ class CountriesRankFragment: Fragment(), OnCountryRankItemClickListener {
 
     private fun orderCountriesByTotalCases() {
 
-        val countries = PremiumGlobalDataInfo.premiumGlobalData!!.Countries
+        val countries = PremiumGlobalDataInfo.premiumCountriesData!!
         val cases: ArrayList<Int> = ArrayList()
 
         for (i in 1..countries.size) {

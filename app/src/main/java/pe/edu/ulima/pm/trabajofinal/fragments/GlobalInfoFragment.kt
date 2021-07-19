@@ -1,19 +1,25 @@
 package pe.edu.ulima.pm.trabajofinal.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import pe.edu.ulima.pm.trabajofinal.R
 import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
+import pe.edu.ulima.pm.trabajofinal.objects.InternetConnection
 
 class GlobalInfoFragment: Fragment() {
 
@@ -45,8 +51,6 @@ class GlobalInfoFragment: Fragment() {
 
         pchGlobalData = view.findViewById(R.id.pchGlobalData)
 
-        setPieChart()
-
         //Llamando a los TextView de fragment_global_info
         tviDateGlobal = view.findViewById(R.id.tviDateGlobal)
         tviTotalConfirmedGlobal = view.findViewById(R.id.tviTotalConfirmedGlobal)
@@ -54,12 +58,26 @@ class GlobalInfoFragment: Fragment() {
         tviTotalRecoveredGlobal = view.findViewById(R.id.tviTotalRecoveredGlobal)
         tviTotalActiveCasesGlobal = view.findViewById(R.id.tviTotalActiveCasesGlobal)
 
-        // Seteando los TextView
-        tviDateGlobal.text = "Last updated: ${gd?.Date}"
-        tviTotalConfirmedGlobal.text = "Total confirmed cases: ${gd?.TotalConfirmed}"
-        tviTotalDeathsGlobal.text = "Total deaths: ${gd?.TotalDeaths}"
-        tviTotalRecoveredGlobal.text = "Total recovered: ${gd?.TotalRecovered}"
-        tviTotalActiveCasesGlobal.text = "Total active cases: $totalActiveCasesGlobal"
+        if (InternetConnection.isConnected) {
+
+            setPieChart()
+            // Seteando los TextView
+            tviDateGlobal.text = "Last updated: ${gd?.Date}"
+            tviTotalConfirmedGlobal.text = "Total confirmed cases: ${gd?.TotalConfirmed}"
+            tviTotalDeathsGlobal.text = "Total deaths: ${gd?.TotalDeaths}"
+            tviTotalRecoveredGlobal.text = "Total recovered: ${gd?.TotalRecovered}"
+            tviTotalActiveCasesGlobal.text = "Total active cases: $totalActiveCasesGlobal"
+
+        } else {
+
+            setPieChart()
+            // Seteando los TextView
+            tviDateGlobal.text = "Last updated: 2021-07-18T19:19:37.181Z"
+            tviTotalConfirmedGlobal.text = "Total confirmed cases: 189736109"
+            tviTotalDeathsGlobal.text = "Total deaths: 4079720"
+            tviTotalRecoveredGlobal.text = "Total recovered: 125035616"
+            tviTotalActiveCasesGlobal.text = "Total active cases: 60620773"
+        }
     }
 
     private fun setPieChart() {
@@ -71,26 +89,25 @@ class GlobalInfoFragment: Fragment() {
             colors.add(i)
         }
 
-        for (i in ColorTemplate.COLORFUL_COLORS) {
-            colors.add(i)
-        }
-
         pieDataSet.colors = colors
+        pieData.setValueTextSize(10f)
+        pieData.setValueFormatter(PercentFormatter(pchGlobalData))
         pchGlobalData.animateXY(2000,2000)
         pchGlobalData.data = pieData
-
+        pchGlobalData.description.text=""
+        pchGlobalData.setUsePercentValues(true)
+        pchGlobalData.setCenterTextSize(50f)
+        pchGlobalData.invalidate()
     }
 
     private fun getList() : ArrayList<PieEntry>{
 
-        dataList.add(0, PieEntry(10000f,"Recovered"))
-        dataList.add(1, PieEntry(2000f,"Active"))
-        dataList.add(2, PieEntry(1000f,"Deaths"))
+        dataList.add(0, PieEntry(65.9f,"Recovered"))
+        dataList.add(1, PieEntry(32.0f,"Active"))
+        dataList.add(2, PieEntry(2.2f,"Deaths"))
 
         return dataList
     }
+
 }
 
-/*dataList.add(0, PieEntry(gd?.TotalRecovered!!.toFloat(),"Total Recovered"))
-dataList.add(1, PieEntry(totalActiveCasesGlobal.toFloat(),"Total Active"))
-dataList.add(2, PieEntry(gd?.TotalDeaths!!.toFloat(),"Total Deaths"))*/

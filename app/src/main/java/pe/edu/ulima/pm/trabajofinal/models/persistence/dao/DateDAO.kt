@@ -7,7 +7,7 @@ import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.DateEntity
 interface DateDAO {
 
     @Query("SELECT * FROM DateEntity")
-    suspend fun getAllCountries(): List<DateEntity>
+    suspend fun getAllDates(): List<DateEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDate(date: DateEntity)

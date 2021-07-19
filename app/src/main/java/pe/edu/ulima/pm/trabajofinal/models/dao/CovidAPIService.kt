@@ -18,4 +18,8 @@ interface CovidAPIService {
     @Headers("X-Access-Token: 5cf9dfd5-3449-485e-b5ae-70a60e997864")
     @GET
     suspend fun getPremiumGlobalData(@Url url: String): Response<PremiumGlobalData>
+
+    @Headers("X-Access-Token: 5cf9dfd5-3449-485e-b5ae-70a60e997864")
+    @GET
+    suspend fun getCountryHistoricalStats(@Url url: String): Response<ArrayList<CountryHistoricalData>>
 }

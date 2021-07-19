@@ -4,5 +4,5 @@ data class PremiumGlobalData(
     val ID: String,
     val Message: String,
     val Countries: ArrayList<PremiumSingleCountryData>,
-    val Date: String
+    var Date: String
 )

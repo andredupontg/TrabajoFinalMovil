@@ -1,6 +1,8 @@
 package pe.edu.ulima.pm.trabajofinal
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +14,7 @@ import kotlinx.coroutines.launch
 import pe.edu.ulima.pm.trabajofinal.fragments.GlobalInfoFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SynchronizeFragment
 import pe.edu.ulima.pm.trabajofinal.models.AppDatabase
-import pe.edu.ulima.pm.trabajofinal.models.dao.CovidAPIService
-import pe.edu.ulima.pm.trabajofinal.models.dao.Global
-import pe.edu.ulima.pm.trabajofinal.models.dao.GlobalData
-import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.*
 import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumGlobalData
 import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
 import pe.edu.ulima.pm.trabajofinal.models.persistence.dao.CountryDAO
@@ -24,10 +23,7 @@ import pe.edu.ulima.pm.trabajofinal.models.persistence.dao.GlobalDAO
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.CountryEntity
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.DateEntity
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.GlobalEntity
-import pe.edu.ulima.pm.trabajofinal.objects.FirstTime
-import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
-import pe.edu.ulima.pm.trabajofinal.objects.PremiumGlobalDataInfo
-import pe.edu.ulima.pm.trabajofinal.objects.PremiumSingleCountryStats
+import pe.edu.ulima.pm.trabajofinal.objects.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -59,8 +55,17 @@ class MainActivity : AppCompatActivity() {
         globalDAO = AppDatabase.getInstance(this).globalDAO
         dateDAO = AppDatabase.getInstance(this).dateDAO
 
-        searchGlobalData()
-        searchPremiumGlobalData()
+        //Si hay conexion a internet, se recibe data actualizada del API
+        if (verifyAvailableNetwork(this)) {
+            searchGlobalData()
+            searchPremiumGlobalData()
+
+        } else {
+            lifecycleScope.launch {
+                InternetConnection.isConnected = false
+                getDataFromRoom()
+            }
+        }
 
         lifecycleScope.launch {
             var data: List<CountryEntity>? = null
@@ -120,31 +125,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchGlobalData() {
-        lifecycleScope.launch {
-            val call = getRetrofit().create(CovidAPIService::class.java).getGlobalData("/summary")
 
-            // Si hay conexion con el API
-            if (call.isSuccessful) {
+            lifecycleScope.launch {
+                val call =
+                    getRetrofit().create(CovidAPIService::class.java).getGlobalData("/summary")
 
-                globalData = call.body()
-                GlobalDataInfo.globalData = call.body()
-                Log.i("globalData", GlobalDataInfo.globalData.toString())
+                // Si hay conexion con el API
+                if (call.isSuccessful) {
 
-                setCountriesData(GlobalDataInfo.globalData!!)
-                GlobalDataInfo.countriesData = countriesDataList
-                Log.i("countriesData", GlobalDataInfo.countriesData.toString())
+                    globalData = call.body()
+                    GlobalDataInfo.globalData = call.body()
+                    Log.i("globalData", GlobalDataInfo.globalData.toString())
 
-            // Si no hay conexion con el API
-            }else {
+                    setCountriesData(GlobalDataInfo.globalData!!)
+                    GlobalDataInfo.countriesData = countriesDataList
+                    Log.i("countriesData", GlobalDataInfo.countriesData.toString())
 
-                Log.i("MainActivity", "No se puede conectar al API")
-
-
+                } else {
+                    Log.i("MainActivity", "No se pudo conectar al API")
+                }
             }
-        }
     }
 
     private fun searchPremiumGlobalData() {
+
         lifecycleScope.launch {
             val call = getRetrofit().create(CovidAPIService::class.java).getPremiumGlobalData("/premium/summary")
 
@@ -168,14 +172,8 @@ class MainActivity : AppCompatActivity() {
                 val date = DateEntity(0,PremiumGlobalDataInfo.premiumGlobalData!!.Date)
                 dateDAO!!.insertDate(date)
 
-                getDataFromRoom()
-
             }else {
-                Log.i("MainActivity", "No se puede conectar al API")
-
-                //Usar datos de la BD si no hay conexion con el API
-                getDataFromRoom()
-
+                Log.i("MainActivity", "No se pudo conectar al API")
             }
         }
     }
@@ -238,6 +236,7 @@ class MainActivity : AppCompatActivity() {
 
         val countries: ArrayList<PremiumSingleCountryData> = ArrayList()
         val global = Global(0,0,0,0,0,0,"")
+        val date = Date(0,"")
 
         val countryEntity = ArrayList(countryDAO!!.getAllCountries())
         for (i in 1..countryEntity.size) {
@@ -269,8 +268,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         val globalEntity = ArrayList(globalDAO!!.getAllGlobal())
+        val g = globalEntity[globalEntity.size-1]
 
+        global.TotalRecovered = g.TotalRecovered
+        global.Date = g.Date
+        global.TotalDeaths = g.TotalDeaths
+        global.TotalConfirmed = g.TotalConfirmed
+        global.NewConfirmed = g.NewConfirmed
+        global.NewDeaths = g.NewDeaths
+        global.NewRecovered = g.NewRecovered
 
+        Log.i("Mainnn", global.toString())
+
+        val dateEntity = ArrayList(dateDAO!!.getAllDates())
+        val d = dateEntity[dateEntity.size-1]
+
+        date.ID = d.ID
+        date.Date = d.Date
+
+        // Anadir resultados a los Singleton
+        PremiumGlobalDataInfo.premiumCountriesData = countries
+        Log.i("asda", PremiumGlobalDataInfo.premiumCountriesData.toString())
+        GlobalDataInfo.globalData?.Global = global
+        PremiumGlobalDataInfo.premiumGlobalData?.Date= date.Date
+    }
+
+    private fun verifyAvailableNetwork(activity:AppCompatActivity):Boolean{
+        val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
     }
 
 }

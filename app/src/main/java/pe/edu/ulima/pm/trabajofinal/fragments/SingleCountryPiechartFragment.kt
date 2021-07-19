@@ -18,6 +18,7 @@ import pe.edu.ulima.pm.trabajofinal.objects.FirstTime.isFirstTime
 import pe.edu.ulima.pm.trabajofinal.objects.GlobalDataInfo
 import pe.edu.ulima.pm.trabajofinal.objects.PremiumSingleCountryStats
 import pe.edu.ulima.pm.trabajofinal.objects.SingleCountryStats
+import pe.edu.ulima.pm.trabajofinal.objects.test
 
 class SingleCountryPiechartFragment: Fragment() {
 
@@ -33,10 +34,6 @@ class SingleCountryPiechartFragment: Fragment() {
     private var dataList: ArrayList<PieEntry> = ArrayList()
     private var colors: ArrayList<Int> = ArrayList()
     private lateinit var pchSingleCountry: PieChart
-
-    object Test {
-        var isFirstTime = 1
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,23 +77,20 @@ class SingleCountryPiechartFragment: Fragment() {
 
         pieDataSet.colors = colors
         pieData.setValueTextSize(10f)
-        //pieData.setValueFormatter(PercentFormatter(pchSingleCountry))
         pchSingleCountry.animateXY(2000,2000)
         pchSingleCountry.data = pieData
         pchSingleCountry.description.text=""
-        //pchSingleCountry.setUsePercentValues(true)
         pchSingleCountry.setCenterTextSize(50f)
         pchSingleCountry.invalidate()
     }
 
     private fun getList() : ArrayList<PieEntry>{
 
-        if (Test.isFirstTime == 1) {
-            dataList.add(0, PieEntry(sc!!.TotalCasesPerMillion.toFloat(), "Cases/million"))
-            dataList.add(1, PieEntry(sc!!.TotalDeathsPerMillion.toFloat(), "Deaths/Million"))
-            //dataList.add(2, PieEntry(sc!!.TotalDeaths.toFloat(),"Total Deaths"))
-        }
-        Test.isFirstTime = 0
+        //if (test.isFirstTime == 1) {
+        dataList.add(0, PieEntry(sc!!.TotalCasesPerMillion.toFloat(), "Cases/million"))
+        dataList.add(1, PieEntry(sc!!.TotalDeathsPerMillion.toFloat(), "Deaths/Million"))
+        //}
+        //test.isFirstTime = 0
 
         return dataList
     }
