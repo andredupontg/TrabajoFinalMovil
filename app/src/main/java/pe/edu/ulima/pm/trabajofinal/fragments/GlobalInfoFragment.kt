@@ -58,6 +58,7 @@ class GlobalInfoFragment: Fragment() {
         tviTotalRecoveredGlobal = view.findViewById(R.id.tviTotalRecoveredGlobal)
         tviTotalActiveCasesGlobal = view.findViewById(R.id.tviTotalActiveCasesGlobal)
 
+        // Si hay conexion
         if (InternetConnection.isConnected) {
 
             setPieChart()
@@ -68,6 +69,7 @@ class GlobalInfoFragment: Fragment() {
             tviTotalRecoveredGlobal.text = "Total recovered: ${gd?.TotalRecovered}"
             tviTotalActiveCasesGlobal.text = "Total active cases: $totalActiveCasesGlobal"
 
+        //Si no hay conexion
         } else {
 
             setPieChart()
@@ -80,6 +82,7 @@ class GlobalInfoFragment: Fragment() {
         }
     }
 
+    //Configurar el PieChart
     private fun setPieChart() {
 
         val pieDataSet = PieDataSet(getList(), "")

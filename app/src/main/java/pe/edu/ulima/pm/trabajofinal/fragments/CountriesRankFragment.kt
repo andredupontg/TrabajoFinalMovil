@@ -46,6 +46,7 @@ class CountriesRankFragment: Fragment(), OnCountryRankItemClickListener {
 
     }
 
+    // Se ordena la lista de paises de acuerdo a los casos por millon
     private fun orderCountriesByTotalCases() {
 
         val countries = PremiumGlobalDataInfo.premiumCountriesData!!
@@ -58,6 +59,7 @@ class CountriesRankFragment: Fragment(), OnCountryRankItemClickListener {
         cases.sort()
         Log.i("Cases", cases.toString())
 
+        //Se excluye a los paises con 0 casos
         for (i in 1..countries.size) {
             for (j in 1..countries.size) {
                 if (countries[j-1].TotalCases.toInt() == cases[i-1] && countries[j-1].TotalCases.toInt() != 0)
@@ -66,6 +68,7 @@ class CountriesRankFragment: Fragment(), OnCountryRankItemClickListener {
         }
     }
 
+    //Cuando se hace click en un pais
     override fun onClick(country: PremiumSingleCountryData) {
 
         //Actualizando el Singleton con la info del pais seleccionado

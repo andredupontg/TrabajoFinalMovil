@@ -19,9 +19,8 @@
         android:id="@+id/tviChartInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:text="@string/the_graph_is_based_in_the_last_20_covid_reports_sent"/>
 
 </LinearLayout>

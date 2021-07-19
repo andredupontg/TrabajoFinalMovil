@@ -26,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
 
-    private var title: TextView? = null
     private var rviCompetitions: RecyclerView? = null
     private var countryName: String? = null
 
@@ -51,6 +50,7 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
 
     }
 
+    // Devuelve una lista sin paises con 0 casos
     private fun removeEmptyCountries(): ArrayList<PremiumSingleCountryData> {
         val countries = PremiumGlobalDataInfo.premiumCountriesData
         for (i in 1..190) {
@@ -61,24 +61,13 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
         return countries!!
     }
 
-    override fun onClick(country: PremiumSingleCountryData) {
-
-        //Actualizando el Singleton con la info del pais seleccionado
-        PremiumSingleCountryStats.country = country
-        countryName = getCountrySlug(country.Country)
-
-        searchSingleCountryHistoricalData()
-
-        //Abrir SingleCountryActivity
-        //val intent = Intent(context, SingleCountryActivity::class.java)
-        //startActivity(intent)
-    }
-
+    //Para llamar a la direccion base del retrofit
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("https://api.covid19api.com")
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
+    // Se solicita la informacion historica del pais seleccionado
     private fun searchSingleCountryHistoricalData() {
 
         lifecycleScope.launch {
@@ -92,9 +81,20 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
         }
     }
 
+    // Para obtener el nombre del pais en minusculas y sin espacios
     private fun getCountrySlug(countryName: String): String {
         val slug = countryName.replace(" ", "-").lowercase()
         return slug
+    }
+
+    //Cuando se hace click en un pais
+    override fun onClick(country: PremiumSingleCountryData) {
+
+        //Actualizando el Singleton con la info del pais seleccionado
+        PremiumSingleCountryStats.country = country
+        countryName = getCountrySlug(country.Country)
+
+        searchSingleCountryHistoricalData()
     }
 
 }
