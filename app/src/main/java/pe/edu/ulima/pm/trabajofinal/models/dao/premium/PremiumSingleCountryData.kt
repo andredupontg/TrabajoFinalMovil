@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao.premium
 
+// Data class para poder acceder a la data de la api con la info de un país como parametro
 data class PremiumSingleCountryData(
     val ID: String,
     val CountryISO: String,

@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao.premium
 
+// Data class para poder hacer el ranking
 data class PremiumGlobalData(
     val ID: String,
     val Message: String,
