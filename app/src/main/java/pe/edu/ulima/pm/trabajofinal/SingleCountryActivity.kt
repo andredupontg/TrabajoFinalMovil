@@ -14,8 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import pe.edu.ulima.pm.trabajofinal.fragments.SingleCountryGraphFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SingleCountryPiechartFragment
 import pe.edu.ulima.pm.trabajofinal.objects.PremiumSingleCountryStats
-import pe.edu.ulima.pm.trabajofinal.objects.SingleCountryStats
-import pe.edu.ulima.pm.trabajofinal.objects.test
+import pe.edu.ulima.pm.trabajofinal.objects.Test
 
 class SingleCountryActivity: AppCompatActivity() {
 
@@ -51,7 +50,7 @@ class SingleCountryActivity: AppCompatActivity() {
 
         //Se configura un listener en la barra de navegacion para que cambie de Fragment segun se solicite
         nviSingleCountry!!.setNavigationItemSelectedListener { item: MenuItem ->
-            test.isFirstTime = 1
+            Test.isFirstTime = 1
             item.isChecked = true
             val ft = supportFragmentManager.beginTransaction()
 

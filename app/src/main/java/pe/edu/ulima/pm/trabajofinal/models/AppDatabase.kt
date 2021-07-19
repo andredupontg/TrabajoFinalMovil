@@ -12,7 +12,7 @@ import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.DateEntity
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.GlobalEntity
 
 // Configuracion de la bd
-@Database(entities = arrayOf(CountryEntity::class, GlobalEntity::class, DateEntity::class), version = 1)
+@Database(entities = [CountryEntity::class, GlobalEntity::class, DateEntity::class], version = 1)
 abstract class AppDatabase: RoomDatabase () {
 
     // Para acceder a los metodos de los DAO

@@ -1,6 +1,5 @@
 package pe.edu.ulima.pm.trabajofinal.models.persistence.dao
 
-import android.provider.Settings
 import androidx.room.*
 import pe.edu.ulima.pm.trabajofinal.models.persistence.entities.GlobalEntity
 

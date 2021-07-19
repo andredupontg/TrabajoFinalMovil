@@ -7,5 +7,4 @@ import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
 object GlobalDataInfo {
     var globalData: GlobalData? = null
     var countriesData: ArrayList<SingleCountryData>? = null
-    var globalStats: Global? = null
 }

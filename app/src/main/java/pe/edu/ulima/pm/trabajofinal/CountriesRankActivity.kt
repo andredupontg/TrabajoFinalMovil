@@ -6,10 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import pe.edu.ulima.pm.trabajofinal.fragments.CountriesInfoFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.CountriesRankFragment
-import pe.edu.ulima.pm.trabajofinal.fragments.SingleCountryPiechartFragment
 
 class CountriesRankActivity: AppCompatActivity() {
 

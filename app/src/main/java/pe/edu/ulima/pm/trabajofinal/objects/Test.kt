@@ -1,5 +1,5 @@
 package pe.edu.ulima.pm.trabajofinal.objects
 
-object test {
+object Test {
     var isFirstTime = 1
 }

@@ -90,8 +90,7 @@ class CountriesRankFragment: Fragment(), OnCountryRankItemClickListener {
 
     // Para obtener el nombre del pais en minusculas y sin espacios
     private fun getCountrySlug(countryName: String): String {
-        val slug = countryName.replace(" ", "-").lowercase()
-        return slug
+        return countryName.replace(" ", "-").lowercase()
     }
 
 

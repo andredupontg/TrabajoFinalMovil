@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.trabajofinal.R
-import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
-import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
 import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
 
 interface OnCountryInfoItemClickListener {

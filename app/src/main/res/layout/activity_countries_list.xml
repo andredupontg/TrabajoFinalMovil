@@ -17,7 +17,6 @@
         app:navigationIcon="@drawable/ic_baseline_local_airport_24"/>
 
     <TextView
-        android:id="@+id/tviCountriesInfoTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

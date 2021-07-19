@@ -2,23 +2,18 @@ package pe.edu.ulima.pm.trabajofinal.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import pe.edu.ulima.pm.trabajofinal.CountriesListActivity
 import pe.edu.ulima.pm.trabajofinal.R
 import pe.edu.ulima.pm.trabajofinal.SingleCountryActivity
 import pe.edu.ulima.pm.trabajofinal.adapters.CountriesInfoRVAdapter
 import pe.edu.ulima.pm.trabajofinal.adapters.OnCountryInfoItemClickListener
-import pe.edu.ulima.pm.trabajofinal.models.dao.CountryData
 import pe.edu.ulima.pm.trabajofinal.models.dao.CovidAPIService
-import pe.edu.ulima.pm.trabajofinal.models.dao.SingleCountryData
 import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
 import pe.edu.ulima.pm.trabajofinal.objects.*
 import retrofit2.Retrofit
@@ -82,8 +77,7 @@ class CountriesInfoFragment: Fragment(), OnCountryInfoItemClickListener {
 
     // Para obtener el nombre del pais en minusculas y sin espacios
     private fun getCountrySlug(countryName: String): String {
-        val slug = countryName.replace(" ", "-").lowercase()
-        return slug
+        return countryName.replace(" ", "-").lowercase()
     }
 
     //Cuando se hace click en un pais
