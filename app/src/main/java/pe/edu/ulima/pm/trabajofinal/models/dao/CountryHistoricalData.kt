@@ -1,6 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.models.dao
 
-// Data class para acceder a la data de un país a día de hoy
+// Data class para acceder a la data historica de un pais
 data class CountryHistoricalData(
     val ID: String,
     val Country: String,

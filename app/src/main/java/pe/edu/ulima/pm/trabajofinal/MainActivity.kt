@@ -15,8 +15,8 @@ import pe.edu.ulima.pm.trabajofinal.fragments.GlobalInfoFragment
 import pe.edu.ulima.pm.trabajofinal.fragments.SynchronizeFragment
 import pe.edu.ulima.pm.trabajofinal.models.AppDatabase
 import pe.edu.ulima.pm.trabajofinal.models.dao.*
-import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumGlobalData
-import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.PremiumGlobalData
+import pe.edu.ulima.pm.trabajofinal.models.dao.PremiumSingleCountryData
 import pe.edu.ulima.pm.trabajofinal.models.persistence.dao.CountryDAO
 import pe.edu.ulima.pm.trabajofinal.models.persistence.dao.DateDAO
 import pe.edu.ulima.pm.trabajofinal.models.persistence.dao.GlobalDAO
@@ -27,15 +27,11 @@ import pe.edu.ulima.pm.trabajofinal.objects.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-// Listo para trabajar
-
 class MainActivity : AppCompatActivity() {
 
     private var toolbar: androidx.appcompat.widget.Toolbar? = null
     private var fragments: ArrayList<Fragment> = ArrayList()
     private var globalData: GlobalData? = null //Datos globales de covid + lista de paises con info completa
-    private var countriesDataList: ArrayList<SingleCountryData> = ArrayList() //Lista de paises con info completa
     private var premiumCountriesDataList: ArrayList<PremiumSingleCountryData> = ArrayList() //Lista de paises con info premium completa
 
     //Para instanciar los DAO
@@ -66,12 +62,6 @@ class MainActivity : AppCompatActivity() {
                 InternetConnection.isConnected = false
                 getDataFromRoom()
             }
-        }
-
-        lifecycleScope.launch {
-            var data: List<CountryEntity>? = null
-            data = countryDAO!!.getAllCountries()
-            Log.i("MainActivity", data.toString())
         }
 
         //Seteando el toolbar
@@ -139,14 +129,9 @@ class MainActivity : AppCompatActivity() {
 
                     globalData = call.body()
                     GlobalDataInfo.globalData = call.body()
-                    Log.i("globalData", GlobalDataInfo.globalData.toString())
-
-                    setCountriesData(GlobalDataInfo.globalData!!)
-                    GlobalDataInfo.countriesData = countriesDataList
-                    Log.i("countriesData", GlobalDataInfo.countriesData.toString())
 
                 } else {
-                    Log.i("MainActivity", "No se pudo conectar al API")
+                    Log.i("MainActivity", call.errorBody().toString())
                 }
             }
     }
@@ -160,6 +145,7 @@ class MainActivity : AppCompatActivity() {
             // Si se devuelve data
             if (call.isSuccessful) {
                 PremiumGlobalDataInfo.premiumGlobalData = call.body()
+                Log.i("RequestHeaders", call.raw().toString())
 
                 setPremiumCountriesData(PremiumGlobalDataInfo.premiumGlobalData!!)
                 PremiumGlobalDataInfo.premiumCountriesData = premiumCountriesDataList
@@ -179,14 +165,8 @@ class MainActivity : AppCompatActivity() {
                 dateDAO!!.insertDate(date)
 
             }else {
-                Log.i("MainActivity", "No se pudo conectar al API")
+                Log.i("MainActivity", call.errorBody().toString())
             }
-        }
-    }
-
-    private fun setCountriesData(globalData: GlobalData) {
-        for (i in globalData.Countries) {
-            countriesDataList.add(i)
         }
     }
 
@@ -249,7 +229,8 @@ class MainActivity : AppCompatActivity() {
         val size = countryEntity.size
 
         for (i in (size-217)..size) {
-            countries.add(PremiumSingleCountryData(
+            countries.add(
+                PremiumSingleCountryData(
                 countryEntity[i-1].ID,
                 countryEntity[i-1].CountryISO,
                 countryEntity[i-1].Country,

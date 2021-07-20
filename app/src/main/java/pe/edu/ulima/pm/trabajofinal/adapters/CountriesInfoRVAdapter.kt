@@ -1,5 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.trabajofinal.R
-import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.PremiumSingleCountryData
 
 interface OnCountryInfoItemClickListener {
     fun onClick(country: PremiumSingleCountryData)
@@ -41,6 +42,7 @@ class CountriesInfoRVAdapter: RecyclerView.Adapter<CountriesInfoRVAdapter.ViewHo
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val country = countries!![position]
 

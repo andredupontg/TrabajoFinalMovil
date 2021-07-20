@@ -1,4 +1,4 @@
-package pe.edu.ulima.pm.trabajofinal.models.dao.premium
+package pe.edu.ulima.pm.trabajofinal.models.dao
 
 // Data class para poder hacer el ranking
 data class PremiumGlobalData(

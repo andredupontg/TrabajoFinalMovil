@@ -1,6 +1,6 @@
 package pe.edu.ulima.pm.trabajofinal.objects
 
-import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.PremiumSingleCountryData
 
 object PremiumSingleCountryStats {
 

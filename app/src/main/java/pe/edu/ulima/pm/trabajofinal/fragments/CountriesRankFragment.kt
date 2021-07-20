@@ -15,7 +15,7 @@ import pe.edu.ulima.pm.trabajofinal.SingleCountryActivity
 import pe.edu.ulima.pm.trabajofinal.adapters.CountriesRankRVAdapter
 import pe.edu.ulima.pm.trabajofinal.adapters.OnCountryRankItemClickListener
 import pe.edu.ulima.pm.trabajofinal.models.dao.CovidAPIService
-import pe.edu.ulima.pm.trabajofinal.models.dao.premium.PremiumSingleCountryData
+import pe.edu.ulima.pm.trabajofinal.models.dao.PremiumSingleCountryData
 import pe.edu.ulima.pm.trabajofinal.objects.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
